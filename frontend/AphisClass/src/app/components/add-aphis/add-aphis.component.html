@@ -1,0 +1,42 @@
+<div>
+  <div class="submit-form">
+    <div *ngIf="!submitted">
+      <div class="form-group">
+        <label for="name">Gatunek</label>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          required
+          [(ngModel)]="aphid.name"
+          name="name"
+        />
+      </div>
+      <div class="form-group">
+        <label for="date">Data</label>
+        <input
+          class="form-control"
+          id="date"
+          required
+          [(ngModel)]="aphid.date"
+          name="description"
+        />
+      </div>
+            <div class="form-group">
+        <label for="lengthOfBody">Długość</label>
+        <input
+          class="form-control"
+          id="lengthOfBody"
+          required
+          [(ngModel)]="aphid.length_of_body"
+          name="description"
+        />
+      </div>
+      <button (click)="saveAphid()" class="btn btn-success">Zapisz</button>
+    </div>
+    <div *ngIf="submitted">
+      <h4>Mszyca została zapisana!</h4>
+      <button class="btn btn-success" (click)="newAphid()">Dodaj następną</button>
+    </div>
+  </div>
+</div>
