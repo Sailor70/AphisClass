@@ -11,11 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class AphisDetailsComponent implements OnInit {
 
   @Input() viewMode = false;
-  @Input() currentAphid: Aphid = {
-    name: '',
-    date: '',
-    length_of_body: 0
-  };
+  @Input() currentAphid: Aphid = {};
 
    message = '';
   JSON: any;

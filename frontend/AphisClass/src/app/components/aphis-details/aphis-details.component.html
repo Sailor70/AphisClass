@@ -1,26 +1,50 @@
-<div *ngIf="viewMode; else editable">
-  <div *ngIf="currentAphid.id">
-    <h4>Dane szczegółowe</h4>
-    <div>
-      <label><strong>Gatunek:</strong></label> {{ currentAphid.name }}
+<div class="m-4" *ngIf="viewMode; else editable">
+  <h3>Dane szczegółowe</h3>
+  <div class="fade-in-element basic-data" *ngIf="currentAphid.id">
+    <div class="field grid">
+      <div class="col-fixed label">Gatunek:</div>
+      <div class="col value">
+        {{currentAphid.name}}
+      </div>
     </div>
-    <div>
-      <label><strong>Data zbioru:</strong></label>
-      {{ currentAphid.date }}
+    <div class="field grid">
+      <div class="col-fixed label">Data pozyskania:</div>
+      <div class="col value">
+        {{currentAphid.date}}
+      </div>
     </div>
-    <div>
-      <label><strong>Długość:</strong></label>
-      {{ currentAphid.length_of_body }}
+    <div class="field grid">
+      <div class="col-fixed label">Długość tułowia:</div>
+      <div class="col value">
+        {{currentAphid.length_of_body}}
+      </div>
     </div>
-    <a
-      class="badge badge-warning"
-      routerLink="/aphids/{{ currentAphid.id }}"
-    >
-      Edytuj
-    </a>
+    <div class="field grid">
+      <div class="col-fixed label">hind_femora_length:</div>
+      <div class="col value">
+        {{currentAphid.hind_femora_length}}
+      </div>
+    </div>
+    <div class="field grid">
+      <div class="col-fixed label">hind_tibia_lenght:</div>
+      <div class="col value">
+        {{currentAphid.hind_tibia_lenght}}
+      </div>
+    </div>
+    <div class="field grid">
+      <div class="col-fixed label">number_of_setae_on_cauda:</div>
+      <div class="col value">
+        {{currentAphid.number_of_setae_on_cauda}}
+      </div>
+    </div>
+    <div class="field grid">
+      <div class="col-fixed label">cauda_length:</div>
+      <div class="col value">
+        {{currentAphid.cauda_length}}
+      </div>
+    </div>
   </div>
-  <div *ngIf="!currentAphid">
-    <br />
+  <div *ngIf="!currentAphid.name">
     <p>Wybierz mszycę z listy ...</p>
   </div>
 </div>
@@ -50,7 +74,7 @@
       </div>
       <div class="form-group">
         <label><strong>Długość:</strong></label>
-                <input
+        <input
           type="text"
           class="form-control"
           id="lengthOfBody"
@@ -59,7 +83,7 @@
         />
       </div>
     </form>
-<!--    {{currentAphid | json}}-->
+    <!--    {{currentAphid | json}}-->
     <button class="badge badge-danger mr-2" (click)="deleteAphid()">
       Usuń
     </button>
@@ -73,7 +97,7 @@
     <p>{{ message }}</p>
   </div>
   <div *ngIf="!currentAphid.id">
-    <br />
+    <br/>
     <p>Nie można wyświetlić szczegółów tej mszycy ...</p>
   </div>
 </ng-template>

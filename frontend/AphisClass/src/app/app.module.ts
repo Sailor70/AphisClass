@@ -12,6 +12,9 @@ import { HttpClientModule } from '@angular/common/http';
 import {CommonModule} from "@angular/common";
 import {InputTextModule} from "primeng/inputtext";
 import {ButtonModule} from "primeng/button";
+import {TooltipModule} from "primeng/tooltip";
+import {InfiniteScrollModule} from 'ngx-infinite-scroll';
+
 
 @NgModule({
   declarations: [
@@ -21,16 +24,18 @@ import {ButtonModule} from "primeng/button";
     AphisDetailsComponent,
     ClassifyAphidComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule,
-    CommonModule,
-    InputTextModule,
-    ReactiveFormsModule,
-    ButtonModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        HttpClientModule,
+        CommonModule,
+        InputTextModule,
+        ReactiveFormsModule,
+        ButtonModule,
+        TooltipModule,
+        InfiniteScrollModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

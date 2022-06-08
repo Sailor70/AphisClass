@@ -3,7 +3,44 @@
   margin: auto;
 }
 
-//.field {
-//  display: flex;
-//  flex-direction: row;
-//}
+.tab {
+  height: 50vh;
+  min-height: 24rem;
+  display: flex;
+  flex-flow: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  &--basic-data {
+    .label {
+      width: 11rem;
+    }
+  }
+
+  &--messages {
+    .label {
+      width: 7rem;
+    }
+  }
+}
+
+.terminal-container {
+  display: flex;
+  gap: .5rem;
+  font-size: 1.5rem;
+}
+
+.persons-header {
+  margin-top: 0;
+}
+
+.basic-data {
+  .label {
+    width: 16rem;
+  }
+}
+
+.persons {
+  flex: 1 1 auto;
+  min-height: 0;
+}

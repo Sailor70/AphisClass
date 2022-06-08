@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Aphid } from 'src/app/models/aphid.model';
 import { AphisApiService } from 'src/app/services/aphis-api.service';
+import {FormControl, FormGroup} from "@angular/forms";
+import {debounceTime} from "rxjs";
 
 @Component({
   selector: 'app-aphids-list',
@@ -12,8 +14,24 @@ export class AphidsListComponent implements OnInit {
   aphids?: Aphid[];
   currentAphid: Aphid = {};
   currentIndex = -1;
-  name = '';
-  constructor(private aphisApiService: AphisApiService) { }
+  searchPattern = '';
+
+  readonly mainFg: FormGroup;
+  readonly nameFc: FormControl;
+
+
+
+  constructor(private aphisApiService: AphisApiService) {
+    this.nameFc = new FormControl();
+    this.mainFg = new FormGroup({
+      name: this.nameFc,
+    });
+
+    this.mainFg.valueChanges.pipe(
+      debounceTime(500),
+    ).subscribe(() => this.searchName());
+
+  }
   ngOnInit(): void {
     this.retrieveAphids();
   }
@@ -23,6 +41,7 @@ export class AphidsListComponent implements OnInit {
         next: (data) => {
           this.aphids = data;
           console.log(data);
+          this.currentAphid = this.aphids[0];
         },
         error: (e) => console.error(e)
       });
@@ -49,7 +68,7 @@ export class AphidsListComponent implements OnInit {
   searchName(): void {
     this.currentAphid = {};
     this.currentIndex = -1;
-    this.aphisApiService.findByName(this.name)
+    this.aphisApiService.findByName(this.nameFc.value)
       .subscribe({
         next: (data) => {
           this.aphids = data;
@@ -57,5 +76,10 @@ export class AphidsListComponent implements OnInit {
         },
         error: (e) => console.error(e)
       });
+  }
+
+  onFilterClear() {
+    this.nameFc.setValue('', {emitEvent: false});
+    this.retrieveAphids();
   }
 }

@@ -1,43 +1,108 @@
-<div class="list row">
-  <div class="col-md-8">
-    <div class="input-group mb-3">
-      <input
-        type="text"
-        class="form-control"
-        placeholder="Wyszukaj gatunek"
-        [(ngModel)]="name"
-      />
-      <div class="input-group-append">
-        <button
-          class="btn btn-outline-secondary"
-          type="button"
-          (click)="searchName()"
-        >
-          Szukaj
-        </button>
+<!--<div class="list row">-->
+<!--  <div class="col-md-8">-->
+<!--    <div class="input-group mb-3">-->
+<!--      <input-->
+<!--        type="text"-->
+<!--        class="form-control"-->
+<!--        placeholder="Wyszukaj gatunek"-->
+<!--        [(ngModel)]="searchPattern"-->
+<!--      />-->
+<!--      <div class="input-group-append">-->
+<!--        <button-->
+<!--          class="btn btn-outline-secondary"-->
+<!--          type="button"-->
+<!--          (click)="searchName()"-->
+<!--        >-->
+<!--          Szukaj-->
+<!--        </button>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <div class="col-md-6">-->
+<!--    <h4>Lista mszyc</h4>-->
+<!--    <ul class="list-group">-->
+<!--      <li-->
+<!--        class="list-group-item"-->
+<!--        *ngFor="let aphid of aphids; let i = index"-->
+<!--        [class.active]="i == currentIndex"-->
+<!--        (click)="setActiveAphid(aphid, i)"-->
+<!--      >-->
+<!--        {{ aphid.name }}-->
+<!--      </li>-->
+<!--    </ul>-->
+<!--    <button class="m-3 btn btn-sm btn-danger" (click)="removeAllAphids()">-->
+<!--      Usuń wszystkie-->
+<!--    </button>-->
+<!--  </div>-->
+<!--  <div class="col-md-6">-->
+<!--    <app-aphis-details-->
+<!--      [viewMode]="true"-->
+<!--      [currentAphid]="currentAphid"-->
+<!--    ></app-aphis-details>-->
+<!--  </div>-->
+<!--</div>-->
+
+<div class="fade-in-element">
+  <h3>Baza mszyc</h3>
+  <div class="mb-4 box-container">
+    <form class="p-4 simple-filter-container" [formGroup]="mainFg">
+      <div class="p-formgroup filter__controls">
+        <span class="p-input-icon-left search-field">
+          <i class="pi pi-search"></i>
+          <input pInputText [id]="'name'" type="text" autocomplete="off" placeholder="Szukaj"
+                 [formControl]="nameFc">
+          <span class="clear-input">
+                  <button pButton class="p-button-text p-button-danger clear-input-btn" type="button" icon="pi pi-ban"
+                          pTooltip="Wyczyść filtr"
+                          (click)="onFilterClear()"></button>
+          </span>
+        </span>
+      </div>
+    </form>
+  </div>
+  <div class="master-detail-container">
+    <div class="mr-4 box-container master-container">
+      <div class="m-4">
+        <!--        <div class="p-mb-2">-->
+        <!--          <button pButton class="p-button-sm" type="button" icon="far fa-plus" label="Dodaj"-->
+        <!--                  (click)="onAddScenario()"></button>-->
+        <!--        </div>-->
+        <div class="tile-list-container">
+          <!--  <div class="overlay-container" *ngIf="filterLoading$ | async">-->
+          <!--    <p-progressBar mode="indeterminate" [style]="{'width': '10rem', 'height': '.4rem'}"></p-progressBar>-->
+          <!--  </div>-->
+          <div infiniteScroll #infiniteScroll class="infinite-scroll"
+               [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
+               [alwaysCallback]="true" [scrollWindow]="false">
+            <!--     (scrolled)="onNextPage()"-->
+            <div class="item-tile" *ngFor="let aphid of aphids; let i = index"
+                 [class.selected]="i == currentIndex" (click)="setActiveAphid(aphid, i)">
+              <!--      <div class="avatar">{{aphid.name | itemInitials}}</div>-->
+              <div class="info-container">
+                <span class="tile-name">{{aphid.name}}</span>
+                <div class="details-container">
+                  <span class="terminal-data" *ngIf="aphid?.date">{{aphid?.date}}</span>
+                </div>
+              </div>
+            </div>
+            <!--    <div *ngIf="!(items$ | async)?.length">Brak scenariuszy</div>-->
+          </div>
+          <div class="total-rows">
+            Wszystkich mszyc:
+                        {{aphids?.length}}
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="col-md-6">
-    <h4>Lista mszyc</h4>
-    <ul class="list-group">
-      <li
-        class="list-group-item"
-        *ngFor="let aphid of aphids; let i = index"
-        [class.active]="i == currentIndex"
-        (click)="setActiveAphid(aphid, i)"
-      >
-        {{ aphid.name }}
-      </li>
-    </ul>
-    <button class="m-3 btn btn-sm btn-danger" (click)="removeAllAphids()">
-      Usuń wszystkie
-    </button>
-  </div>
-  <div class="col-md-6">
-    <app-aphis-details
-      [viewMode]="true"
-      [currentAphid]="currentAphid"
-    ></app-aphis-details>
+    <div class="detail-container">
+      <div class="box-container">
+        <div class="p-m-4">
+          <app-aphis-details
+            [viewMode]="true"
+            [currentAphid]="currentAphid"
+          ></app-aphis-details>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

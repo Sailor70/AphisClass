@@ -152,6 +152,7 @@ header {
 footer {
   margin: 1rem 0;
   display: flex;
-  justify-content: space-between;
+  //justify-content: space-between;
+  justify-content: flex-end;
   color: var(--accent-foreground-2);
 }
