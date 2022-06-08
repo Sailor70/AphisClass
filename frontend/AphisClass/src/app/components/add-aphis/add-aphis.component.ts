@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Aphid } from 'src/app/models/aphid.model';
 import { AphisApiService } from 'src/app/services/aphis-api.service';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {AbstractControl, FormControl, FormGroup, ValidatorFn, Validators} from "@angular/forms";
 @Component({
   selector: 'app-add-aphis',
   templateUrl: './add-aphis.component.html',
@@ -26,17 +26,18 @@ export class AddAphisComponent implements OnInit {
   readonly hindTibiaLenghtFc: FormControl;
   readonly numberOfSetaeOnCaudaFc: FormControl;
   readonly caudaLengthFc: FormControl;
-
   submitted = false;
   constructor(private aphisApiService: AphisApiService
 ) {
-    this.nameFc = new FormControl(null, Validators.compose([Validators.required, Validators.min(0)]));
-    this.dateFc = new FormControl(null, Validators.required);
-    this.lengthOfBodyFc = new FormControl(null, Validators.min(0));
-    this.hindFemoraLengthFc = new FormControl(null, Validators.min(0));
-    this.hindTibiaLenghtFc = new FormControl(null, Validators.min(0));
-    this.numberOfSetaeOnCaudaFc = new FormControl(null, Validators.pattern("^[0-9]*$")); // tylko nieujemne integery
-    this.caudaLengthFc = new FormControl(null, Validators.min(0));
+    const positiveRealNumberValidator = this.createValidator(Validators.pattern("^-?[0-9]+([.,][0-9]+)?$"), 'Wymagana liczba rzeczywista dodatnia');
+
+    this.nameFc = new FormControl(null, this.createValidator(Validators.required, 'Nazwa gatunku nie może być pusta'));
+    this.dateFc = new FormControl(null, this.createValidator(Validators.required, 'Należy wypełnić datę pozyskania'));
+    this.lengthOfBodyFc = new FormControl(null, positiveRealNumberValidator);
+    this.hindFemoraLengthFc = new FormControl(null, positiveRealNumberValidator);
+    this.hindTibiaLenghtFc = new FormControl(null, positiveRealNumberValidator);
+    this.numberOfSetaeOnCaudaFc = new FormControl(null, this.createValidator(Validators.pattern("^[0-9]*$"), 'Wymagana liczba całkowita dodatnia')); // tylko nieujemne integery
+    this.caudaLengthFc = new FormControl(null, positiveRealNumberValidator);
 
     this.mainFg = new FormGroup({
       nameFc: this.nameFc,
@@ -83,4 +84,10 @@ export class AddAphisComponent implements OnInit {
     this.submitted = false;
     this.mainFg.reset();
   }
+
+  createValidator(baseValidatorFn: ValidatorFn, errorMessage: string): ValidatorFn | null {
+    return (control: AbstractControl): { [key: string]: any } | null =>
+      baseValidatorFn(control) ? {numericValidator: errorMessage} : null;
+  }
+
 }

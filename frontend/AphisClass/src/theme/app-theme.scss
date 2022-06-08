@@ -1,0 +1,45 @@
+@import "app-palette";
+@import "app-global-styles";
+@import "primeng-theme";
+@import "primeng-custom-styles";
+
+html {
+  font-size: 14px;
+  overflow-y: scroll;
+}
+
+body {
+  --setting-font-family: "Montserrat", sans-serif;
+  --border-radius-1: 16px;
+  --border-radius-2: 8px;
+  --border-radius-3: 4px;
+  margin: 0;
+  background-color: var(--accent-background-1);
+  color: var(--accent-foreground-1);
+  font-family: var(--setting-font-family);
+}
+
+$scrollbar-width: 10px;
+
+::-webkit-scrollbar {
+  width: $scrollbar-width;
+  height: $scrollbar-width;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--accent-background-3);
+  border-radius: $scrollbar-width / 2;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent-background-4);
+  border-radius: $scrollbar-width / 2;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-background-5);
+}

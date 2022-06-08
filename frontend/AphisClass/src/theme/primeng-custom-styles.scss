@@ -1,0 +1,149 @@
+// custom form validation
+.validated-input-container {
+  display: flex;
+  flex-flow: column;
+
+  small.p-invalid {
+    display: none;
+    margin-top: .5rem;
+  }
+}
+
+.ng-dirty .validated-input-container {
+  .p-inputtext.ng-touched.ng-invalid,
+  .ng-touched.ng-invalid .p-dropdown {
+    border-color: var(--accent-error);
+  }
+
+  .ng-invalid.ng-touched ~ small.p-invalid {
+    display: block;
+  }
+}
+
+// custom inline message
+.p-inline-message.fullwidth {
+  width: 100%;
+  justify-content: start;
+}
+
+// custom table
+p-table .light {
+  th, tr, .p-paginator {
+    background-color: inherit !important;
+  }
+
+  .p-paginator {
+    border: none;
+  }
+}
+
+// custom toast
+.p-toast.top-center-toast {
+  position: fixed;
+  top: 2rem;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.p-toast.bottom-center-toast {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.p-toast.wide-toast {
+  width: 40rem;
+  max-width: 100vw;
+  margin: 0;
+}
+
+.p-multiselect.multiselect-multiline {
+  .p-multiselect-label {
+    padding-top: .25rem;
+    padding-bottom: .25rem;
+    margin-bottom: -0.4rem;
+    white-space: normal;
+  }
+}
+
+.p-multiselect {
+  min-width: 15rem;
+}
+
+// splitbutton fix
+.p-splitbutton .p-button {
+  &.p-splitbutton-defaultbutton {
+    margin: 0 !important;
+  }
+
+  &.p-splitbutton-menubutton {
+    width: 2.357rem;;
+  }
+}
+
+// tooltip size
+.p-tooltip {
+  max-width: 20em;
+}
+
+// toolbar overlaypanel
+.toolbar-overlaypanel.p-overlaypanel {
+  top: 100% !important;
+  left: unset !important;
+  right: 0 !important;
+  margin-top: 0;
+
+  .p-overlaypanel-content {
+    padding: 0;
+  }
+
+  &:after, &:before {
+    display: none;
+  }
+}
+
+// global sidebar
+.p-sidebar.global-sidebar {
+  width: 80vw;
+  max-width: 30rem;
+
+  .p-sidebar-content {
+    height: 100%;
+  }
+}
+
+// global panelmenu
+.p-panelmenu.global-panelmenu {
+  .p-panelmenu-header > a {
+    padding: 1.5rem 0;
+    font-size: 1.4rem;
+
+    .p-menuitem-icon, .p-panelmenu-icon {
+      width: 2rem;
+      text-align: center;
+    }
+  }
+
+  .p-panelmenu-header.selected .p-panelmenu-header-link {
+    color: var(--accent-turquoise-4);
+  }
+
+  .p-panelmenu-content .p-menuitem {
+    .p-menuitem-link {
+      padding: 1.5rem;
+      font-size: 1.2rem;
+    }
+
+    &.selected .p-menuitem-link .p-menuitem-text {
+      color: var(--accent-turquoise-4);
+    }
+  }
+}
+
+// modal - wizard light theme background
+.p-dialog.wizard {
+  .p-dialog-header, .p-dialog-content, .p-dialog-footer {
+    background: var(--accent-background-2);
+  }
+}
