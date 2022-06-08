@@ -7,9 +7,11 @@ import { AphidsListComponent } from './components/aphids-list/aphids-list.compon
 import { AddAphisComponent } from './components/add-aphis/add-aphis.component';
 import { AphisDetailsComponent } from './components/aphis-details/aphis-details.component';
 import { ClassifyAphidComponent } from './components/classify-aphid/classify-aphid.component';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import {CommonModule} from "@angular/common";
+import {InputTextModule} from "primeng/inputtext";
+import {ButtonModule} from "primeng/button";
 
 @NgModule({
   declarations: [
@@ -24,7 +26,10 @@ import {CommonModule} from "@angular/common";
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    CommonModule
+    CommonModule,
+    InputTextModule,
+    ReactiveFormsModule,
+    ButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

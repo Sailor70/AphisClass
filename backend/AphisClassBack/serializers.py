@@ -8,4 +8,8 @@ class AphisSerializer(serializers.ModelSerializer):
         fields = ('id',
                   'name',
                   'date',
-                  'length_of_body')
+                  'length_of_body',
+                  'hind_femora_length',
+                  'hind_tibia_lenght',
+                  'number_of_setae_on_cauda',
+                  'cauda_length')

@@ -12,7 +12,7 @@ export class AphisApiService {
     return this.http.get<Aphid[]>(baseUrl);
   }
   get(id: any): Observable<Aphid> {
-    return this.http.get(`${baseUrl}/${id}`);
+    return this.http.get<Aphid>(`${baseUrl}/${id}`);
   }
   create(data: any): Observable<any> {
     return this.http.post(baseUrl, data);
