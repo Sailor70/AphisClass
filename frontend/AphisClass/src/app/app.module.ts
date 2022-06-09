@@ -14,6 +14,9 @@ import {InputTextModule} from "primeng/inputtext";
 import {ButtonModule} from "primeng/button";
 import {TooltipModule} from "primeng/tooltip";
 import {InfiniteScrollModule} from 'ngx-infinite-scroll';
+import {CalendarModule} from "primeng/calendar";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { DateTimePipe } from './pipes/date-time.pipe';
 
 
 @NgModule({
@@ -22,10 +25,12 @@ import {InfiniteScrollModule} from 'ngx-infinite-scroll';
     AphidsListComponent,
     AddAphisComponent,
     AphisDetailsComponent,
-    ClassifyAphidComponent
+    ClassifyAphidComponent,
+    DateTimePipe
   ],
     imports: [
         BrowserModule,
+        BrowserAnimationsModule,
         AppRoutingModule,
         FormsModule,
         HttpClientModule,
@@ -34,7 +39,8 @@ import {InfiniteScrollModule} from 'ngx-infinite-scroll';
         ReactiveFormsModule,
         ButtonModule,
         TooltipModule,
-        InfiniteScrollModule
+        InfiniteScrollModule,
+        CalendarModule
     ],
   providers: [],
   bootstrap: [AppComponent]

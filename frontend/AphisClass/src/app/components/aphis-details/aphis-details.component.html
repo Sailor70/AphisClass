@@ -10,7 +10,7 @@
     <div class="field grid">
       <div class="col-fixed label">Data pozyskania:</div>
       <div class="col value">
-        {{currentAphid.date}}
+        {{currentAphid.date | dateTime}}
       </div>
     </div>
     <div class="field grid">
@@ -43,6 +43,7 @@
         {{currentAphid.cauda_length}}
       </div>
     </div>
+    <button pButton class="p-button p-button-outlined" type="button" label="Edytuj" icon="pi pi-pencil" routerLink="/aphids/{{ currentAphid.id }}"></button>
   </div>
   <div *ngIf="!currentAphid.name">
     <p>Wybierz mszycę z listy ...</p>
@@ -50,50 +51,63 @@
 </div>
 <ng-template #editable>
   <div *ngIf="currentAphid.id" class="edit-form">
-    <h4>Edycja danych mszycy</h4>
-    <form>
-      <div class="form-group">
-        <label for="name">Gatunek</label>
-        <input
-          type="text"
-          class="form-control"
-          id="name"
-          [(ngModel)]="currentAphid.name"
-          name="title"
-        />
+     <form class="formgroup" autocomplete="off" [formGroup]="mainFg" (submit)="updateAphid()">
+      <div class="field grid">
+        <label for="name" class="col-fixed">Gatunek</label>
+        <div class="col validated-input-container">
+          <input pInputText id="name" type="text" autocomplete="off" [formControl]="nameFc">
+          <small class="p-invalid" *ngFor="let error of nameFc.errors | keyvalue">{{error.value}}</small>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="date">Data zbioru</label>
-        <input
-          type="text"
-          class="form-control"
-          id="date"
-          [(ngModel)]="currentAphid.date"
-          name="date"
-        />
+      <div class="field grid">
+        <label for="date" class="col-fixed">Data pozyskania</label>
+        <div class="col validated-input-container">
+          <p-calendar [style]="{'width':'20rem'}" id="date" [showButtonBar]="true" [formControl]="dateFc"></p-calendar>
+          <small class="p-invalid" *ngFor="let error of dateFc.errors | keyvalue">{{error.value}}</small>
+        </div>
       </div>
-      <div class="form-group">
-        <label><strong>Długość:</strong></label>
-        <input
-          type="text"
-          class="form-control"
-          id="lengthOfBody"
-          [(ngModel)]="currentAphid.length_of_body"
-          name="lengthOfBody"
-        />
+      <div class="field grid">
+        <label for="length_of_body" class="col-fixed">Długość tułowia</label>
+        <div class="col validated-input-container">
+          <input pInputText id="length_of_body" type="text" autocomplete="off" [formControl]="lengthOfBodyFc">
+          <small class="p-invalid" *ngFor="let error of lengthOfBodyFc.errors | keyvalue">{{error.value}}</small>
+        </div>
       </div>
+      <div class="field grid">
+        <label for="hind_femora_length" class="col-fixed">hind_femora_length</label>
+        <div class="col validated-input-container">
+          <input pInputText id="hind_femora_length" type="text" autocomplete="off" [formControl]="hindFemoraLengthFc">
+          <small class="p-invalid" *ngFor="let error of hindFemoraLengthFc.errors | keyvalue">{{error.value}}</small>
+        </div>
+      </div>
+      <div class="field grid">
+        <label for="hind_tibia_lenght" class="col-fixed">hind_tibia_lenght</label>
+        <div class="col validated-input-container">
+          <input pInputText id="hind_tibia_lenght" type="text" autocomplete="off" [formControl]="hindTibiaLenghtFc">
+          <small class="p-invalid" *ngFor="let error of hindTibiaLenghtFc.errors | keyvalue">{{error.value}}</small>
+        </div>
+      </div>
+      <div class="field grid">
+        <label for="number_of_setae_on_cauda" class="col-fixed">number_of_setae_on_cauda</label>
+        <div class="col validated-input-container">
+          <input pInputText id="number_of_setae_on_cauda" type="text" autocomplete="off"
+                 [formControl]="numberOfSetaeOnCaudaFc">
+          <small class="p-invalid"
+                 *ngFor="let error of numberOfSetaeOnCaudaFc.errors | keyvalue">{{error.value}}</small>
+        </div>
+      </div>
+      <div class="field grid">
+        <label for="cauda_length" class="col-fixed">cauda_length</label>
+        <div class="col validated-input-container">
+          <input pInputText id="cauda_length" type="text" autocomplete="off" [formControl]="caudaLengthFc">
+          <small class="p-invalid" *ngFor="let error of caudaLengthFc.errors | keyvalue">{{error.value}}</small>
+        </div>
+      </div>
+       <div class="buttons">
+               <button pButton icon="pi pi-check" type="submit" label="Aktualizuj"></button>
+       <button pButton class="p-button p-button-danger" type="button" label="Usuń" icon="pi pi-times" (click)="deleteAphid()"></button>
+       </div>
     </form>
-    <!--    {{currentAphid | json}}-->
-    <button class="badge badge-danger mr-2" (click)="deleteAphid()">
-      Usuń
-    </button>
-    <button
-      type="submit"
-      class="badge badge-success mb-2"
-      (click)="updateAphid()"
-    >
-      Aktualizuj
-    </button>
     <p>{{ message }}</p>
   </div>
   <div *ngIf="!currentAphid.id">

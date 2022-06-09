@@ -1,6 +1,7 @@
 .edit-form {
-  max-width: 400px;
-  margin: auto;
+  flex: 1 1 100%;
+  display: flex;
+  flex-flow: column;
 }
 
 .tab {
@@ -43,4 +44,17 @@
 .persons {
   flex: 1 1 auto;
   min-height: 0;
+}
+
+label {
+  width: 20rem;
+}
+
+input {
+  width: 20rem;
+}
+
+.buttons {
+  display: flex;
+  gap: 1rem;
 }

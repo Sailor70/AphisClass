@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {MenuItem} from "primeng/api";
+import {MenuItem, PrimeNGConfig} from "primeng/api";
 
 @Component({
   selector: 'app-root',
@@ -14,6 +14,7 @@ export class AppComponent {
 
   constructor(
     public readonly router: Router,
+    private config: PrimeNGConfig
   ) {
     this.menuItems = [
       {label: 'Lista mszyc', fragment: 'aphids', visible: true},
@@ -23,8 +24,23 @@ export class AppComponent {
     this.selectedMenuItem = this.menuItems[0];
   }
 
-    onMenuItemClick(menuItem: MenuItem) {
-      this.selectedMenuItem = menuItem;
-      this.router.navigate([this.selectedMenuItem.fragment])
+  ngOnInit() {
+    this.config.setTranslation({
+      firstDayOfWeek: 1,
+      dayNames: ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'],
+      dayNamesShort: ['Nd', 'Pon', 'Wt', 'Śr', 'Czw', 'Pt', 'Sob'],
+      dayNamesMin: ['Nd', 'Pn', 'Wt', 'Śr', 'Cz', 'Pt', 'So'],
+      monthNames: ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'],
+      monthNamesShort: ['Sty', 'Lut', 'Mar', 'Kwi', 'Maj', 'Cze', 'Lip', 'Sie', 'Wrz', 'Paź', 'Lis', 'Gru'],
+      today: 'Dzisiaj',
+      clear: 'Wyczyść',
+      dateFormat: 'dd.mm.yy',
+      weekHeader: 'Tdz',
+    });
+  }
+
+  onMenuItemClick(menuItem: MenuItem) {
+    this.selectedMenuItem = menuItem;
+    this.router.navigate([this.selectedMenuItem.fragment])
   }
 }

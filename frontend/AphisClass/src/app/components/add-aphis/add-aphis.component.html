@@ -9,9 +9,9 @@
         </div>
       </div>
       <div class="field grid">
-        <label for="date" class="col-fixed">Data</label>
+        <label for="date" class="col-fixed">Data pozyskania</label>
         <div class="col validated-input-container">
-          <input pInputText id="date" type="text" autocomplete="off" [formControl]="dateFc">
+          <p-calendar [style]="{'width':'20rem'}" id="date" [showButtonBar]="true" [formControl]="dateFc"></p-calendar>
           <small class="p-invalid" *ngFor="let error of dateFc.errors | keyvalue">{{error.value}}</small>
         </div>
       </div>
@@ -56,7 +56,7 @@
     </form>
   </div>
   <div *ngIf="submitted">
-    <h4>Mszyca została zapisana!</h4>
-    <button class="btn btn-success" (click)="newAphid()">Dodaj następną</button>
+    <h3 class="aphid-saved">Mszyca została zapisana!</h3>
+    <button pButton class="p-button" type="button" label="Dodaj następną" icon="pi pi-plus" (click)="newAphid()"></button>
   </div>
 </div>
