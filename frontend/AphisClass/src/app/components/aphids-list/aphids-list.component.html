@@ -1,47 +1,3 @@
-<!--<div class="list row">-->
-<!--  <div class="col-md-8">-->
-<!--    <div class="input-group mb-3">-->
-<!--      <input-->
-<!--        type="text"-->
-<!--        class="form-control"-->
-<!--        placeholder="Wyszukaj gatunek"-->
-<!--        [(ngModel)]="searchPattern"-->
-<!--      />-->
-<!--      <div class="input-group-append">-->
-<!--        <button-->
-<!--          class="btn btn-outline-secondary"-->
-<!--          type="button"-->
-<!--          (click)="searchName()"-->
-<!--        >-->
-<!--          Szukaj-->
-<!--        </button>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--  <div class="col-md-6">-->
-<!--    <h4>Lista mszyc</h4>-->
-<!--    <ul class="list-group">-->
-<!--      <li-->
-<!--        class="list-group-item"-->
-<!--        *ngFor="let aphid of aphids; let i = index"-->
-<!--        [class.active]="i == currentIndex"-->
-<!--        (click)="setActiveAphid(aphid, i)"-->
-<!--      >-->
-<!--        {{ aphid.name }}-->
-<!--      </li>-->
-<!--    </ul>-->
-<!--    <button class="m-3 btn btn-sm btn-danger" (click)="removeAllAphids()">-->
-<!--      Usuń wszystkie-->
-<!--    </button>-->
-<!--  </div>-->
-<!--  <div class="col-md-6">-->
-<!--    <app-aphis-details-->
-<!--      [viewMode]="true"-->
-<!--      [currentAphid]="currentAphid"-->
-<!--    ></app-aphis-details>-->
-<!--  </div>-->
-<!--</div>-->
-
 <div class="fade-in-element">
   <h3>Baza mszyc</h3>
   <div class="mb-4 box-container">
@@ -63,10 +19,6 @@
   <div class="master-detail-container">
     <div class="mr-4 box-container master-container">
       <div class="m-4">
-        <!--        <div class="p-mb-2">-->
-        <!--          <button pButton class="p-button-sm" type="button" icon="far fa-plus" label="Dodaj"-->
-        <!--                  (click)="onAddScenario()"></button>-->
-        <!--        </div>-->
         <div class="tile-list-container">
           <!--  <div class="overlay-container" *ngIf="filterLoading$ | async">-->
           <!--    <p-progressBar mode="indeterminate" [style]="{'width': '10rem', 'height': '.4rem'}"></p-progressBar>-->
@@ -88,8 +40,11 @@
             <!--    <div *ngIf="!(items$ | async)?.length">Brak scenariuszy</div>-->
           </div>
           <div class="total-rows">
-            Wszystkich mszyc:
-                        {{aphids?.length}}
+            Wszystkich mszyc: {{aphids?.length}}
+          </div>
+          <div class="p-mb-2">
+            <button pButton class="p-button-sm p-button-danger" type="button" icon="far fa-plus" label="Usuń wszystkie"
+                    (click)="removeAllAphids()"></button>
           </div>
         </div>
       </div>

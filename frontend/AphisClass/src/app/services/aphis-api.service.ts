@@ -29,4 +29,7 @@ export class AphisApiService {
   findByName(name: any): Observable<Aphid[]> {
     return this.http.get<Aphid[]>(`${baseUrl}?name=${name}`);
   }
+  classify(data: any): Observable<any> {
+    return this.http.post(baseUrl.concat('/classify'), data)
+  }
 }

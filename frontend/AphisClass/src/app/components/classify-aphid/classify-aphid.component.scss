@@ -1,0 +1,19 @@
+.classify-container {
+  display: flex;
+
+  label {
+    width: 20rem;
+  }
+
+  input {
+    width: 20rem;
+  }
+
+  .submit-form {
+    display: flex;
+    flex-flow: column;
+  }
+
+  .classify-result {
+  }
+}
