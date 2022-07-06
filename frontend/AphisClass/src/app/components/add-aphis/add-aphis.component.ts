@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { AphisApiService } from 'src/app/services/aphis-api.service';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AphisApiService} from 'src/app/services/aphis-api.service';
 import {AbstractControl, FormControl, FormGroup, ValidatorFn, Validators} from "@angular/forms";
 
 @Component({
@@ -17,7 +17,16 @@ export class AddAphisComponent implements OnInit {
   readonly hindTibiaLenghtFc: FormControl;
   readonly numberOfSetaeOnCaudaFc: FormControl;
   readonly caudaLengthFc: FormControl;
+  readonly fileFc: FormControl;
+
+  // @ts-ignore
+  private file: File;
+
   submitted = false;
+
+  // @ts-ignore
+  @ViewChild('fileInput') fileInput: ElementRef;
+
   constructor(
     private aphisApiService: AphisApiService,
   ) {
@@ -30,20 +39,23 @@ export class AddAphisComponent implements OnInit {
     this.hindTibiaLenghtFc = new FormControl(null, positiveRealNumberValidator);
     this.numberOfSetaeOnCaudaFc = new FormControl(null, this.createValidator(Validators.pattern("^[0-9]*$"), 'Wymagana liczba całkowita dodatnia')); // tylko nieujemne integery
     this.caudaLengthFc = new FormControl(null, positiveRealNumberValidator);
+    this.fileFc = new FormControl();
 
     this.mainFg = new FormGroup({
-      nameFc: this.nameFc,
-      dateFc: this.dateFc,
-      lengthOfBodyFc: this.lengthOfBodyFc,
-      hindFemoraLengthFc: this.hindFemoraLengthFc,
-      hindTibiaLenghtFc: this.hindTibiaLenghtFc,
-      numberOfSetaeOnCaudaFc: this.numberOfSetaeOnCaudaFc,
-      caudaLengthFc: this.caudaLengthFc,
-
+      name: this.nameFc,
+      date: this.dateFc,
+      lengthOfBody: this.lengthOfBodyFc,
+      hindFemoraLength: this.hindFemoraLengthFc,
+      hindTibiaLenght: this.hindTibiaLenghtFc,
+      numberOfSetaeOnCauda: this.numberOfSetaeOnCaudaFc,
+      caudaLength: this.caudaLengthFc,
+      file: this.fileFc
     });
   }
+
   ngOnInit(): void {
   }
+
   saveAphid(): void {
     this.mainFg.markAsDirty();
     if (this.mainFg.invalid) {
@@ -57,18 +69,42 @@ export class AddAphisComponent implements OnInit {
       hind_femora_length: this.hindFemoraLengthFc.value,
       hind_tibia_lenght: this.hindTibiaLenghtFc.value,
       number_of_setae_on_cauda: this.numberOfSetaeOnCaudaFc.value,
-      cauda_length: this.caudaLengthFc.value
+      cauda_length: this.caudaLengthFc.value,
+      image_url: this.file.name
     }).subscribe({
-        next: (res) => {
-          console.log(res);
-          this.submitted = true;
-        },
-        error: (e) => console.error(e)
-      });
+      next: (res) => {
+        console.log(res);
+        this.submitted = true;
+      },
+      error: (e) => console.error(e)
+    });
+    const formData = new FormData();
+    formData.append('file', this.file);
+    this.aphisApiService.post_image(formData).subscribe(
+      (res) => {
+        console.log(res);
+        console.log(res.file);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
+
   newAphid(): void {
     this.submitted = false;
     this.mainFg.reset();
+  }
+
+  onFileSelect(event: Event) {
+    console.log('Wlazło na file select')
+    // @ts-ignore
+    if (event.target.files.length > 0) {
+      // @ts-ignore
+      this.file = event.target.files[0];
+      this.fileFc.setValue(this.file.name);
+      console.log(this.fileFc.value);
+    }
   }
 
   createValidator(baseValidatorFn: ValidatorFn, errorMessage: string): ValidatorFn | null {

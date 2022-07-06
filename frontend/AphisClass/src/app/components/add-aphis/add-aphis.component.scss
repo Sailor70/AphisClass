@@ -15,3 +15,16 @@ input {
 .aphid-saved {
   margin-top: 0;
 }
+
+input[type=file] {
+  display: none;
+}
+
+.center {
+  align-self: center;
+}
+
+.filename {
+  display: flex;
+  flex-direction: column;
+}

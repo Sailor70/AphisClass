@@ -32,4 +32,7 @@ export class AphisApiService {
   classify(data: any): Observable<any> {
     return this.http.post(baseUrl.concat('/classify'), data)
   }
+  post_image(data: any): Observable<any> {
+    return this.http.post(baseUrl.concat('/image'), data)
+  }
 }

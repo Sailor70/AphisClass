@@ -52,11 +52,25 @@
           <small class="p-invalid" *ngFor="let error of caudaLengthFc.errors | keyvalue">{{error.value}}</small>
         </div>
       </div>
+      <div class="field grid">
+        <label for="import-file" class="col-fixed">Plik</label>
+        <div class="col-fixed validated-input-container">
+          <button pButton class="p-button-sm p-button-outlined"
+                  type="button" icon="pi pi-upload" label="Wczytaj" (click)="fileInput.click()"></button>
+          <input #fileInput [ngClass]="{'ng-invalid ng-touched': fileFc.touched}" id="import-file"
+                 type="file" [accept]="['png', 'jpg', 'jpeg', 'gif', 'tiff', 'bpg']" (change)="onFileSelect($event)">
+          <small class="p-invalid" *ngFor="let error of fileFc.errors | keyvalue">{{error.value}}</small>
+        </div>
+        <div class="col filename center">
+          <div>{{fileFc.value}}</div>
+        </div>
+      </div>
       <button pButton icon="pi pi-check" type="submit" label="Zapisz"></button>
     </form>
   </div>
   <div *ngIf="submitted">
     <h3 class="aphid-saved">Mszyca została zapisana!</h3>
-    <button pButton class="p-button" type="button" label="Dodaj następną" icon="pi pi-plus" (click)="newAphid()"></button>
+    <button pButton class="p-button" type="button" label="Dodaj następną" icon="pi pi-plus"
+            (click)="newAphid()"></button>
   </div>
 </div>

@@ -1,12 +1,12 @@
 from django.http import JsonResponse
-from django.shortcuts import render
 from rest_framework import status
 from rest_framework.decorators import api_view
-from rest_framework.parsers import JSONParser
+from rest_framework.parsers import JSONParser, FileUploadParser
+from rest_framework.response import Response
 
 from AphisClassBack.classification.knn_classification import classify_knn
 from AphisClassBack.models import Aphis
-from AphisClassBack.serializers import AphisSerializer
+from AphisClassBack.serializers import AphisSerializer, FileSerializer
 
 
 # procesuje requesty i generuje responsy.
@@ -62,17 +62,23 @@ def aphid_detail(request, pk):
 
 @api_view(['POST'])
 def classify_aphid(request):
-    if request.method == 'POST':  #TODO tu nie będzie name, więc nowy model potrzebny?
+    if request.method == 'POST':  # TODO tu nie będzie name, więc nowy model potrzebny?
         message = ''
         aphids = Aphis.objects.all().values()  # pobranie wszystkich z bazy
         all_aphids_list = list(aphids)
-        aphids_serializer = AphisSerializer(aphids, many=True)
-
         aphid_data = JSONParser().parse(request)
-        # print(aphid_data)
-        # aphid_serializer = AphisSerializer(data=aphis_data)
-
-        # if aphid_serializer.is_valid():
-        # message = classify_knn(aphid_serializer.data, all_aphids_list)
         message = classify_knn(aphid_data, all_aphids_list)
         return JsonResponse({'result': message})
+
+
+@api_view(['POST'])
+def post_image(request, *args, **kwargs):
+    parser_class = (FileUploadParser,)
+
+    file_serializer = FileSerializer(data=request.data)
+
+    if file_serializer.is_valid():
+        file_serializer.save()
+        return Response(file_serializer.data, status=status.HTTP_201_CREATED)
+    else:
+        return Response(file_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
